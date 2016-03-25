@@ -39,6 +39,7 @@ public class ClockDigit extends JComponent implements TouchDigit {
         
     }
     
+    @Override
     public void setDigit(int i){
         digit = i;
     }
@@ -88,14 +89,120 @@ public class ClockDigit extends JComponent implements TouchDigit {
     protected void paintComponent(Graphics g) {
         init();
         super.paintComponent(g);
+        g.setColor(Color.black);
+        g.fillRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
         g.setColor(Color.red);
-        g.fillPolygon(segments[0]);
+        int i = 0;
+        switch (digit){
+            case 0:{
+                while (i<7){
+                    if(i!=3)
+                        g.fillPolygon(segments[i]);
+                    i++;
+                }
+                break;
+            }     
+            case 1:{
+                g.fillPolygon(segments[5]);
+                g.fillPolygon(segments[6]);
+                break;
+            }
+            case 2:{
+                while (i<7){
+                    if(i!=0 && i!=6)
+                        g.fillPolygon(segments[i]);
+                    i++;
+                }
+                break;
+            }
+            case 3:{
+                while (i<7){
+                    if(i!=0 && i!=1)
+                        g.fillPolygon(segments[i]);
+                    i++;
+                }
+                break;
+            }
+            case 4:{
+                while (i<7){
+                    if(i!=1 && i!=2 && i!=4)
+                        g.fillPolygon(segments[i]);
+                    i++;
+                }
+                break;
+            }
+            case 5:{
+                while (i<7){
+                    if(i!=1 && i!=5)
+                        g.fillPolygon(segments[i]);
+                    i++;
+                }
+                break;
+            }
+            case 6:{
+                while (i<7){
+                    if(i!=5)
+                        g.fillPolygon(segments[i]);
+                    i++;
+                }
+            }
+            case 7:{
+                while (i<7){
+                    if(i!=0 && i!=1 && i!=3 && i!=4)
+                        g.fillPolygon(segments[i]);
+                    i++;
+                }
+                break;
+            }
+            case 8:{
+                while (i<7){
+                    g.fillPolygon(segments[i]);
+                    i++;
+                }
+                break;
+            }
+            case 9:{
+                while (i<7){
+                    if(i!=1 && i!=4)
+                        g.fillPolygon(segments[i]);
+                    i++;
+                }
+                break;
+            }        
+        }
     }
     
     private void init(){
-        int xpoints[] = {10,15,20,20,15,10};
-        int ypoints[] = {20,15,20,50,55,50};
-        segments = new Polygon[6];
+        int h = this.getSize().height;
+        int y = h/11;
+        int w = this.getSize().width;
+        int x = w/7;
+        int xpoints[], ypoints[];
+        segments = new Polygon[7];
+        
+        xpoints = new int[]{x,(int)(1.5*x),2*x, 2*x,(int)(1.5*x),x};
+        ypoints = new int[]{2*y,(int)(1.5*y),2*y,5*y,(int)(5.5*y),5*y};
         segments[0] = new Polygon(xpoints,ypoints,xpoints.length);
+        
+        ypoints = new int[]{4*y,(int)(3.5*y),4*y,5*y,(int)(5.5*y),5*y};
+        segments[1] = new Polygon(xpoints,ypoints,xpoints.length);
+        
+        xpoints = new int[]{2*x,5*x,(int)(5.5*x),5*x,2*x,(int)(1.5*x)};
+        ypoints = new int[]{y,y,(int)(1.5*y),2*y,2*y,(int)(1.5*y)};  
+        segments[2] = new Polygon(xpoints,ypoints,xpoints.length);
+        
+        ypoints = new int[]{5*y,5*y,(int)(5.5*y),6*y,6*y,(int)(5.5*y)};
+        segments[3] = new Polygon(xpoints,ypoints,xpoints.length);
+        
+        ypoints = new int[]{9*y,9*y,(int)(9.5*y),10*y,10*y,(int)(9.5*y)};
+        segments[4] = new Polygon(xpoints,ypoints,xpoints.length);
+        
+        xpoints = new int[]{5*x,(int)(5.5*x),6*x, 6*x,(int)(5.5*x),5*x};
+        ypoints = new int[]{2*y,(int)(1.5*y),2*y,5*y,(int)(5.5*y),5*y};
+        segments[5] = new Polygon(xpoints,ypoints,xpoints.length);
+        
+        ypoints = new int[]{6*y,(int)(5.5*y),6*y,9*y,(int)(9.5*y),9*y};
+        segments[6] = new Polygon(xpoints,ypoints,xpoints.length);
+        
     }
 }
